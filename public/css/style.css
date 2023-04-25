@@ -1,0 +1,6 @@
+body{
+    background-color: #ECEFF1;
+}
+
+.navbar{border-bottom:2px solid #CCC}
+.navbar-brand img{max-width: 200px;}
