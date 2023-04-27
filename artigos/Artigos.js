@@ -24,6 +24,6 @@ CategoriasModel.hasMany(Artigos);
 Artigos.belongsTo(CategoriasModel);
 
 //comando abaixo deve ser executado apenas 1x, logo após criar os relacionamento, depois remove ou comenta
-Artigos.sync({force: true});
+//Artigos.sync({force: true});
 
 module.exports = Artigos;
