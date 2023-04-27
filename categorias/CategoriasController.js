@@ -41,5 +41,25 @@ router.post('/admin/categorias/salvar', (req, res) => {
     }
 });
 
+router.get('/admin/categoria/excluir/:id?', (req, res) => {
+
+    var id = req.params.id ? req.params.id : false
+
+    if(id){
+
+        CategoriasModel.destroy({
+            where:{
+                id: id
+            }
+        }).then(() => {
+            res.redirect('/admin/categorias');
+        });
+
+    }else{
+        res.redirect('/admin/categorias');
+    }
+
+});
+
 module.exports = router;
 

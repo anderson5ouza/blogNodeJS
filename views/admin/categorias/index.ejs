@@ -31,7 +31,7 @@
                 <td><%= categoria.id %></td>
                 <td><%= categoria.title %></td>
                 <td><%= categoria.slug %></td>
-                <td>-</td>
+                <td><a class="btn btn-danger" href="/admin/categoria/excluir/<%= categoria.id %>"><i class="fa fa-trash"></i></td>
             </tr>
 
         <% }) %>
@@ -40,7 +40,7 @@
     </table>
 
     <div class="wrapper">
-        <a role="button" class="btn btn-success float-right" href="/admin/categorias/nova">+ Nova Categoria</a>
+        <a role="button" class="btn btn-success float-right" href="/admin/categorias/nova"><i class="fa fa-plus"></i> Nova Categoria</a>
     </div>
     
 </div>
