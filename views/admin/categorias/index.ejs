@@ -13,14 +13,15 @@
 
     <h3 class="mt-2 mb-2 text-center">Categorias</h3>
     <hr>
+    <a class="btn btn-success" role="button" href="/admin/categorias/nova"><i class="fa fa-plus"></i> Nova Categoria</a>
 
-    <table class="table table-bordered">
+    <table class="table table-bordered mt-3">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Títiulo</th>
-                <th>Slug</th>
-                <th>Ações</th>
+                <th class="text-center">ID</th>
+                <th class="text-center">Títiulo</th>
+                <th class="text-center">Slug</th>
+                <th class="text-center">Ações</th>
             </tr>
         </thead>
         </tbody>
@@ -28,24 +29,31 @@
         <% categorias.forEach(categoria => { %>
 
             <tr>
-                <td><%= categoria.id %></td>
+                <td class="text-center"><%= categoria.id %></td>
                 <td><%= categoria.title %></td>
-                <td><%= categoria.slug %></td>
-                <td><a class="btn btn-danger" href="/admin/categoria/excluir/<%= categoria.id %>"><i class="fa fa-trash"></i></td>
+                <td class="text-center"><%= categoria.slug %></td>
+                <td class="text-center">
+                    <a class="btn btn-info mr-1" href="/admin/categoria/editar/<%= categoria.id %>"><i class="fa fa-pencil"></i>
+                    <a class="btn btn-danger" onclick="javascript:ConfirmarExclusao(<%= categoria.id %>);" href="javascritp:void(0);"><i class="fa fa-trash"></i>
+                </td>
             </tr>
 
         <% }) %>
     
         </tbody>
     </table>
-
-    <div class="wrapper">
-        <a role="button" class="btn btn-success float-right" href="/admin/categorias/nova"><i class="fa fa-plus"></i> Nova Categoria</a>
-    </div>
     
 </div>
 
 
 <%- include('../../partials/footer.ejs'); %>
+
+<script>
+function ConfirmarExclusao(id) {
+  if(confirm("Tem certeza?") == true) {
+      window.location.href = '/admin/categoria/excluir/'+id;
+  }
+}
+</script>
 
 </html>

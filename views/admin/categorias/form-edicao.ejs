@@ -14,13 +14,14 @@
     <div class="card" id="formulario-categoria">
 
         <div class="card-header">
-            <h3 class="mt-2 mb-2 text-center">Nova Categoria</h3>
+            <h3 class="mt-2 mb-2 text-center">Editar Categoria</h3>
         </div>
         <div class="card-body">
-            <form method="post" action="/admin/categorias/salvar">
+            <form method="post" action="/admin/categoria/editar">
+                <input type="hidden" name="id" value="<%=categoria.id%>" />
                 <label>Título</label>
-                <input type="text" name="title" placeholder="Título" class="form-control mb-2" required>
-                <button class="btn btn-primary mt-2 float-right">Cadastrar</button>
+                <input type="text" name="title" value="<%=categoria.title%>" placeholder="Título" class="form-control mb-2" required>
+                <button class="btn btn-primary mt-2 float-right">Editar</button>
             </form>
         </div>
         <div class="card-footer text-center">
