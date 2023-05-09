@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const CategoriasModel = require('./categorias');
+const CategoriasModel = require('./Categorias');
 const slugify = require('slugify');
-const Categorias = require('./categorias');
+//const Categorias = require('./categorias');
 
 router.get('/admin/categorias', (req, res) => {
     

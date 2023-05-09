@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<%- include('../../partials/header.ejs'); %>
+
+<body>
+
+    <%- include('../../partials/navbar.ejs'); %>
+
+    
+</body>
+
+<div class="container pt-3">
+
+    <div class="card" id="formulario-artigo">
+
+        <div class="card-header">
+            <h3 class="mt-2 mb-2 text-center">Novo Artigo</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" action="/admin/artigos/salvar">
+                <label>Título</label>
+                <input type="text" name="title" placeholder="Título" class="form-control mb-2" required>
+                <label>Categoria</label>
+                
+                <select class="form-control mb-2" name="categoriaId" required>
+                    <option value="">- Selecione -</option>
+                    <% categorias.forEach(categoria => { %>
+                        <option value="<%=categoria.id%>"><%=categoria.title%></option>
+                    <% }) %>
+                </select>
+
+                <label>Conte&uacute;do</label>
+                <textarea id="conteudo" class="form-control mb-2" name="description" placeholder="Conteúdo do artigo" required></textarea>
+                <button class="btn btn-primary mt-2 float-right">Cadastrar</button>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <a role="button" class="btn btn-info" href="/admin/artigos">Voltar</a>
+        </div>
+
+    </div>
+
+</div>
+
+
+<%- include('../../partials/footer.ejs'); %>
+<script src="/tinymce/tinymce.min.js"></script>   
+
+<script>
+    tinymce.init({
+        selector: 'textarea#conteudo',
+        language: 'pt_BR',
+        height: 300,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'undo redo | formatselect | ' +
+        'bold italic backcolor | alignleft aligncenter ' +
+        'alignright alignjustify | bullist numlist outdent indent | ' +
+        'removeformat | help',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+    });
+
+</script>
+
+</html>
