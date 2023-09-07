@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const connection = require('../database/dadabase');
+const connection = require('../database/database');
 
 const Categorias = connection.define('categorias', {
     title:{

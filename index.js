@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const connection = require('./database/dadabase');
+const connection = require('./database/database');
 
 const categoriasController = require('./categorias/CategoriasController');
 const artigosController = require('./artigos/artigosController');

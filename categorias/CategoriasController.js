@@ -25,7 +25,7 @@ router.get('/admin/categorias/nova', (req, res) => {
 });
 
 //tela edição
-router.get('/admin/categoria/editar/:id?', (req, res) => {
+router.get('/admin/categorias/editar/:id?', (req, res) => {
 
     var id = req.params.id ? req.params.id : false
     
@@ -70,7 +70,7 @@ router.post('/admin/categoria/editar', (req, res) => {
     var title = req.body.title;
 
     if(isNaN(id) || title == undefined){
-       res.redirect('/admin/catgoria/editar');
+       res.redirect('/admin/categoria/editar');
     }else{
 
         CategoriasModel.update({title: title},{
