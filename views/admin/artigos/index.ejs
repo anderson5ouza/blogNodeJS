@@ -19,6 +19,7 @@
         <thead>
             <tr>
                 <th class="text-center">ID</th>
+                <th class="text-center">Capa</th>
                 <th class="text-center">Categoria</th>
                 <th class="text-center">Títiulo</th>
                 <th class="text-center">Slug</th>
@@ -31,6 +32,13 @@
 
             <tr>
                 <td class="text-center"><%= artigo.id %></td>
+                <td class="text-center">
+                    <% if(artigo.image){ %>
+                        <img src="/<%=artigo.image%>" class="img-fluid" style="max-width:120px" />
+                    <% }else{ %>
+                        <img src="http://via.placeholder.com/120x120?text=Sem foto" class="img-fluid" style="max-width:120px" />
+                    <% } %>
+                </td>
                 <td class="text-center"><%= artigo.categoria.title %></td>
                 <td><%= artigo.title %></td>
                 <td class="text-center"><%= artigo.slug %></td>

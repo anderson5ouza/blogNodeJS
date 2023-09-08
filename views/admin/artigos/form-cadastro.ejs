@@ -29,10 +29,28 @@
                     <% }) %>
                 </select>
 
+                <input type="hidden" id="foto" name="image" value="" />
+
+                <div class="row">
+                    <div class="col-md-4 offset-md-4">
+                        <img id="avatar" src="http://via.placeholder.com/300x300?text=Sem foto" class="img-fluid">
+                    </div>
+                </div>
+
                 <label>Conte&uacute;do</label>
                 <textarea id="conteudo" class="form-control mb-2" name="description" placeholder="Conteúdo do artigo" required></textarea>
                 <button class="btn btn-primary mt-2 float-right">Cadastrar</button>
             </form>
+
+            <form id="form" enctype="multipart/form-data">
+                <input type="file" name="image" />
+                <br/>
+                <button type="submit" name="upload">Anexar Foto</button>
+                <br/>
+                
+            </form>
+
+
         </div>
         <div class="card-footer text-center">
             <a role="button" class="btn btn-info" href="/admin/artigos">Voltar</a>
@@ -41,6 +59,9 @@
     </div>
 
 </div>
+
+
+
 
 
 <%- include('../../partials/footer.ejs'); %>
@@ -64,6 +85,22 @@
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
     });
 
+</script>
+
+<script>
+    form.addEventListener('submit', event => {
+        event.preventDefault();
+        let formData = new FormData();
+        formData.append('image', event.target[0].files[0]);
+        fetch('/admin/upload', {method: 'post', body: formData})
+        .then(res => res.json())
+        .then(res => {
+            //avatar.src = `http://localhost:7755${res.payload.url}`;
+            avatar.src = '/'+res.url
+            $('#foto').val(res.url);
+        })
+        .catch(console.log);
+    });
 </script>
 
 </html>

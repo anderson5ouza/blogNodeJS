@@ -14,6 +14,10 @@ const Artigos = connection.define('artigos', {
     description: {
         type: Sequelize.TEXT,
         allowNull: false
+    },
+    image:{
+        type: Sequelize.STRING,
+        allowNull: true
     }
 });
 

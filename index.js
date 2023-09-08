@@ -7,11 +7,19 @@ const categoriasController = require('./categorias/CategoriasController');
 const artigosController = require('./artigos/artigosController');
 
 const CategoriasModel = require('./categorias/Categorias');
-const ArtigosModel = require('./artigos/Artigos');
+const ArtigosModel = require('./artigos/artigos');
 
+
+// Enable CORS
+app.use(function(req, res, next){
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+app.use(express.static('uploads'));
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
