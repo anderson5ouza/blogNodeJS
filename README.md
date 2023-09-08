@@ -16,4 +16,5 @@ npm install body-parser --save (usado para receber parâmetros de formulários)
 npm install sequelize --save   (biblioteca usanda para trabalharcom mysql, postgre, mariaDB, SQLite e Microsoft SQL)
 npm install mysql2 --save      (permite a sequelize trabalhar com mysql)
 npm install slugify --save     (usado para gerar as urls amigáveis)
+npm install multer --save      (upload de arquivos)
 ```
