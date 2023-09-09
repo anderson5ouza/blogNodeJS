@@ -25,7 +25,8 @@ const multerStorage = multer.diskStorage({
 
 const upload = multer({storage: multerStorage});
 
-
+//exclusão de arquivo
+const fs = require('fs');
 
 
 
@@ -121,15 +122,35 @@ router.post('/admin/artigo/editar', (req, res) => {
     var title       = req.body.title;
     var categoriaId = req.body.categoriaId;
     var description = req.body.description;
+    var image_atual = req.body.image_atual;
+    var image       = req.body.image ? req.body.image : req.body.image_atual;
 
     if(isNaN(id) || title == undefined){
         res.redirect('/admin/artigos/editar');
     }else{
 
+        //excluir imagem antiga, caso a imagem seja trocada no formulário editar
+        if(image_atual != image){
+
+            const imageAntiga = 'uploads/'+image_atual;
+
+            if(fs.existsSync(imageAntiga)){
+
+                try{
+                    fs.unlinkSync(imageAntiga);
+                }catch (error){
+                    console.log(error);
+                }
+
+            }
+
+        }
+
         ArtigosModel.update({
                 title: title,
                 categoriaId : categoriaId,
-                description: description
+                description: description,
+                image: image
             },{
                 where: {
                     id: id
@@ -143,11 +164,31 @@ router.post('/admin/artigo/editar', (req, res) => {
 });
 
 //ação de delete no banco de dados
-router.get('/admin/artigo/excluir/:id?', (req, res) => {
+router.get('/admin/artigo/excluir/:id?/:image?', (req, res) => {
 
-    var id = req.params.id ? req.params.id : false;
+    let id    = req.params.id ? req.params.id : false;
+    let image = req.params.image ? req.params.image : false;
 
     if(id){
+
+        //excluir a imagem, caso exista
+        if(image){
+
+            let foto = './uploads/'+image;
+
+            if(fs.existsSync(foto)){
+
+                try{
+                    fs.unlinkSync(foto);
+                }catch (error){
+                    console.log(error);
+                }
+
+            }
+        }
+           
+      
+        //exclusão do registro
         ArtigosModel.destroy({
             where:{
                 id: id
@@ -155,6 +196,8 @@ router.get('/admin/artigo/excluir/:id?', (req, res) => {
         }).then(() => {
             res.redirect('/admin/artigos');
         });
+
+
     }else{
         res.redirect('/admin/artigos');
     }

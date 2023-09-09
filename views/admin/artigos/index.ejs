@@ -34,7 +34,7 @@
                 <td class="text-center"><%= artigo.id %></td>
                 <td class="text-center">
                     <% if(artigo.image){ %>
-                        <img src="/<%=artigo.image%>" class="img-fluid" style="max-width:120px" />
+                        <img src="/<%= artigo.image %>" class="img-fluid" style="max-width:120px" />
                     <% }else{ %>
                         <img src="http://via.placeholder.com/120x120?text=Sem foto" class="img-fluid" style="max-width:120px" />
                     <% } %>
@@ -44,7 +44,7 @@
                 <td class="text-center"><%= artigo.slug %></td>
                 <td class="text-center" style="min-width:20%">
                     <a class="btn btn-info mr-1" href="/admin/artigos/editar/<%= artigo.id %>"><i class="fa fa-pencil"></i>
-                    <a class="btn btn-danger" onclick="javascript:ConfirmarExclusao(<%= artigo.id %>);" href="javascritp:void(0);"><i class="fa fa-trash"></i>
+                    <a class="btn btn-danger" onclick="javascript:ConfirmarExclusao('<%= artigo.id %>','<%= artigo.image %>');" href="javascritp:void(0);"><i class="fa fa-trash"></i>
                 </td>
             </tr>
 
@@ -59,9 +59,9 @@
 <%- include('../../partials/footer.ejs'); %>
 
 <script>
-function ConfirmarExclusao(id) {
+function ConfirmarExclusao(id, image) {
   if(confirm("Tem certeza?") == true) {
-      window.location.href = '/admin/artigo/excluir/'+id;
+      window.location.href = '/admin/artigo/excluir/'+id+(image ? '/'+image : '');
       setTimeout(function() { window.location.href = window.location.href }, 2000);
   }
 }
