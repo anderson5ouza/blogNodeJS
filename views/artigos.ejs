@@ -13,7 +13,7 @@
             <p class="lead">Aqui você acompanhará os artigos publicados por mim.</p>
         </div>
 
-        <% artigos.forEach(artigo => { %>
+        <% paginacao.artigos.rows.forEach(artigo => { %>
             <div class="card mb-3">
 
                 <div class="card-header">
@@ -33,6 +33,18 @@
             </div>
             
         <% }) %>
+
+        <div class="row mt-3 mb-5">
+            <div class="col-12">
+                <% if(paginacao.atual > 1){ %>
+                    <a class="float-left btn btn-danger" href="/artigos/<%= paginacao.atual - 1 %>"><i class="fa fa-arrow-left"></i> Anterior</a>
+                <% } %>
+                
+                <% if(paginacao.proxima){ %>
+                   <a class="float-right btn btn-danger" href="/artigos/<%= paginacao.atual + 1 %>">Próxima <i class="fa fa-arrow-right"></i></a>
+                <% } %>
+            </div>
+        </div>
 
     </div>
 

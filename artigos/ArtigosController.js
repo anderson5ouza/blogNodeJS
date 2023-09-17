@@ -73,14 +73,14 @@ router.get('/admin/artigos/editar/:id?', (req, res) => {
         res.redirect('/admin/artigos');
     }else{
 
-        ArtigosModel.findByPk(id,{
-            include: [
-                {model: CategoriasModel}
-            ]
-        }).then(artigo => {
+        ArtigosModel.findByPk(id).then(artigo => {
 
-            res.render('admin/artigos/form-edicao', {
-                artigo: artigo
+            CategoriasModel.findAll({
+                order:[
+                    ['title', 'ASC']
+                ]
+            }).then(categorias =>{
+                res.render('admin/artigos/form-edicao', { artigo: artigo, categorias: categorias });
             });
 
         }).catch(erro => {
@@ -148,6 +148,7 @@ router.post('/admin/artigo/editar', (req, res) => {
 
         ArtigosModel.update({
                 title: title,
+                slug: slugify(title),
                 categoriaId : categoriaId,
                 description: description,
                 image: image

@@ -23,8 +23,18 @@
                 <input type="text" name="title" placeholder="Título" value="<%=artigo.title%>" class="form-control mb-2" required>
                 <label>Categoria</label>
                 
-                <select class="form-control mb-2" name="categoriaId" readonly="readonly" required>
-                    <option value="<%=artigo.categoria.id%>"><%=artigo.categoria.title%></option>
+                <select class="form-control mb-2" name="categoriaId" required>
+                    <% categorias.forEach(categoria => { %>
+
+                        <% if(categoria.id == artigo.categoriaId){ %>
+                            <option selected="selected" value="<%= categoria.id %>"><%= categoria.title %></option>
+                        <% }else{ %>
+                            <option value="<%= categoria.id %>"><%= categoria.title %></option>
+                        <% } %>
+
+                    <% }) %>
+                    
+              
                 </select>
 
                 <input type="hidden" name="image_atual" value="<%=artigo.image%>" />
@@ -42,7 +52,7 @@
                 </div>
 
                 <label>Conte&uacute;do</label>
-                <textarea id="conteudo" class="form-control mb-2" name="description" placeholder="Conteúdo do artigo" required><%=artigo.description%></textarea>
+                <textarea id="conteudo" class="form-control mb-2" name="description" placeholder="Conteúdo do artigo" required></textarea>
                 <button class="btn btn-primary mt-2 float-right">Editar</button>
             </form>
 
@@ -61,6 +71,10 @@
     </div>
 
 </div>
+
+<!-- usado para carregar o conteúdo html que será setado no editor tinymce -->
+<div id="oculto" class="d-none"><%- artigo.description %></div>
+
 
 
 <%- include('../../partials/footer.ejs'); %>
@@ -81,14 +95,12 @@
         'bold italic backcolor | alignleft aligncenter ' +
         'alignright alignjustify | bullist numlist outdent indent | ' +
         'removeformat | help',
-        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+        init_instance_callback: () => {
+            tinymce.get("conteudo").setContent($('#oculto').html());
+        }
     });
 
-</script>
-
-<script>
-
-    
 
     form.addEventListener('submit', event => {
         event.preventDefault();

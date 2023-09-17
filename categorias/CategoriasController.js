@@ -73,12 +73,17 @@ router.post('/admin/categoria/editar', (req, res) => {
        res.redirect('/admin/categoria/editar');
     }else{
 
-        CategoriasModel.update({title: title},{
+        CategoriasModel.update({
+            title: title,
+            slug: slugify(title)
+            },{
             where: {
                 id: id
             }
         }).then(() => {
             res.redirect('/admin/categorias');
+        }).catch(error => {
+            res.redirect('/');
         });
 
     }    
