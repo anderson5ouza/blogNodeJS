@@ -4,10 +4,13 @@ const bodyParser = require('body-parser');
 const connection = require('./database/database');
 
 const categoriasController = require('./categorias/CategoriasController');
-const artigosController = require('./artigos/artigosController');
+const artigosController    = require('./artigos/artigosController');
+const usuariosController   = require('./usuarios/UsuariosController');
 
 const CategoriasModel = require('./categorias/Categorias');
-const ArtigosModel = require('./artigos/artigos');
+const ArtigosModel    = require('./artigos/artigos');
+const UsuariosModel   = require('./usuarios/Usuarios');
+
 
 
 // Enable CORS
@@ -36,6 +39,11 @@ connection.authenticate()
 //informando as rotas dos controllers
 app.use('/', categoriasController);
 app.use('/', artigosController);
+app.use('/', usuariosController);
+
+
+
+
 
 //página principal do blog
 app.get('/', (req, res) => {
