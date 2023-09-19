@@ -1,0 +1,56 @@
+<html>
+
+<%- include('../../partials/header.ejs'); %>
+
+<body>
+
+    <%- include('../../partials/navbar.ejs'); %>
+
+    
+</body>
+
+<div class="container pt-3">
+
+    <div class="card" id="formulario-usuario">
+
+        <div class="card-header">
+            <h3 class="mt-2 mb-2 text-center">Editar Usuário</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" action="/admin/usuario/editar">
+                <input type="hidden" name="id" value="<%=usuario.id%>" />
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Nome</label>
+                        <input type="text" name="nome" value="<%=usuario.nome%>" placeholder="Nome do usuário" class="form-control mb-2" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label>E-mail</label>
+                        <input type="text" name="email" value="<%=usuario.email%>" placeholder="E-mail do usuário" class="form-control mb-2" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Login</label>
+                        <input type="text" name="login" value="<%=usuario.login%>" placeholder="Login do usuário" class="form-control mb-2" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label>Senha</label>
+                        <input type="password" name="senha" class="form-control mb-2">
+                    </div>
+                </div>
+                <button class="btn btn-primary mt-2 float-right">Editar</button>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <a role="button" class="btn btn-info" href="/admin/usuarios">Voltar</a>
+        </div>
+
+    </div>
+
+</div>
+
+
+<%- include('../../partials/footer.ejs'); %>
+
+</html>

@@ -42,7 +42,9 @@ app.use('/', artigosController);
 app.use('/', usuariosController);
 
 
-
+app.get('/admin', (req, res) => {
+    res.render('admin/index');
+});
 
 
 //página principal do blog
