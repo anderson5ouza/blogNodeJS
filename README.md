@@ -17,4 +17,8 @@ npm install sequelize --save   (biblioteca usanda para trabalharcom mysql, postg
 npm install mysql2 --save      (permite a sequelize trabalhar com mysql)
 npm install slugify --save     (usado para gerar as urls amigáveis)
 npm install multer --save      (upload de arquivos)
+npm install bcryptjs --save    (criar hash da senha pra armazenar no banco)
+npm install express-session --save (biblioteca usada para trabalhar com sessions)
+npm install express-fileupload --save (upload de arquivo)
+npm install multer --save (upload de arquivos)
 ```
