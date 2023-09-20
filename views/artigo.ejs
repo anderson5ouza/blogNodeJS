@@ -1,0 +1,40 @@
+<html>
+
+<%- include('partials/header.ejs'); %>
+<%- include('partials/homenavbar.ejs'); %>
+
+<body>
+
+
+    <div class="container">
+
+        <div class="card mb-3">
+
+            <div class="card-header">
+                <h2><%= artigo.title %></h2>
+            </div>
+            <div class="card-body">
+                <% if(artigo.image){ %>
+                    <img src="/<%= artigo.image %>" style="aspect-ratio: 16 / 9; object-fit: cover;" class="img-fluid card-img-top">
+                <% }else{ %>
+                    <img src="http://via.placeholder.com/600x460?text=Sem foto" style="aspect-ratio: 16 / 9; object-fit: cover;" class="img-fluid" />
+                <% } %>
+                <br><hr><br>
+                <%- artigo.description %>
+            </div>
+            <div class="card-footer">
+                <a href="/" class="btn-primary btn">Voltar</a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <%- include('partials/footer.ejs'); %>
+
+</body>
+
+
+</html>
+
+

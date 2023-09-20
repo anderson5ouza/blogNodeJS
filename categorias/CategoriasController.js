@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const CategoriasModel = require('./Categorias');
 const slugify = require('slugify');
+const autenticar = require('../middlewares/autenticacao');
 //const Categorias = require('./categorias');
 
-router.get('/admin/categorias', (req, res) => {
+router.get('/admin/categorias', autenticar, (req, res) => {
     
     CategoriasModel.findAll({
         raw: true,
@@ -20,12 +21,12 @@ router.get('/admin/categorias', (req, res) => {
 });
 
 //tela de cadastro
-router.get('/admin/categorias/nova', (req, res) => {
+router.get('/admin/categorias/nova', autenticar, (req, res) => {
     res.render('admin/categorias/form-cadastro');
 });
 
 //tela edição
-router.get('/admin/categoria/editar/:id?', (req, res) => {
+router.get('/admin/categorias/editar/:id?', autenticar, (req, res) => {
 
     var id = req.params.id ? req.params.id : false
     
@@ -45,7 +46,7 @@ router.get('/admin/categoria/editar/:id?', (req, res) => {
 });
 
 //ação de insert no banco de dados
-router.post('/admin/categorias/salvar', (req, res) => {
+router.post('/admin/categorias/salvar', autenticar, (req, res) => {
 
     var title = req.body.title;
 
@@ -64,21 +65,26 @@ router.post('/admin/categorias/salvar', (req, res) => {
 });
 
 //ação de update no banco de dados
-router.post('/admin/categoria/editar', (req, res) => {
+router.post('/admin/categoria/editar', autenticar, (req, res) => {
     
     var id = req.body.id;
     var title = req.body.title;
 
     if(isNaN(id) || title == undefined){
-       res.redirect('/admin/catgoria/editar');
+       res.redirect('/admin/categoria/editar');
     }else{
 
-        CategoriasModel.update({title: title},{
+        CategoriasModel.update({
+            title: title,
+            slug: slugify(title)
+            },{
             where: {
                 id: id
             }
         }).then(() => {
             res.redirect('/admin/categorias');
+        }).catch(error => {
+            res.redirect('/');
         });
 
     }    
@@ -86,7 +92,7 @@ router.post('/admin/categoria/editar', (req, res) => {
 });
 
 //ação de delete no banco de dados
-router.get('/admin/categoria/excluir/:id?', (req, res) => {
+router.get('/admin/categoria/excluir/:id?', autenticar, (req, res) => {
 
     var id = req.params.id ? req.params.id : false
 

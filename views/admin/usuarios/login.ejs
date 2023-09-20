@@ -1,0 +1,44 @@
+<html>
+
+<%- include('../../partials/header.ejs'); %>
+
+<body>
+
+
+
+<div class="container pt-3">
+
+    <div class="card" id="login-usuario">
+
+        <div class="card-header">
+            <h3 class="mt-2 mb-2 text-center">Área Restrita</h3>
+        </div>
+        <div class="card-body">
+            <form method="post" action="/logar">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Login</label>
+                        <input type="text" name="login" placeholder="Login do usuário" class="form-control mb-2" required>
+                    </div>
+                    <div class="col-md-12">
+                        <label>Senha</label>
+                        <input type="password" name="senha" class="form-control mb-2" required>
+                    </div>
+                </div>
+                <button class="btn btn-primary mt-2 float-right">Entrar</button>
+            </form>
+        </div>
+        <div class="card-footer text-center">
+            <a role="button" class="btn btn-info" href="#">Esqueci minha senha</a>
+        </div>
+
+    </div>
+
+</div>
+
+
+<%- include('../../partials/footer.ejs'); %>
+
+</body>
+
+</html>

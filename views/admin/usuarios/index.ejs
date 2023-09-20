@@ -1,0 +1,62 @@
+<html>
+
+<%- include('../../partials/header.ejs'); %>
+
+<body>
+
+    <%- include('../../partials/navbar.ejs'); %>
+
+
+<div class="container pt-3">
+
+    <h3 class="mt-2 mb-2 text-center">Usuários</h3>
+    <hr>
+    <a class="btn btn-success" role="button" href="/admin/usuarios/novo"><i class="fa fa-plus"></i> Novo Usuário</a>
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Nome</th>
+                <th class="text-center">E-mail</th>
+                <th class="text-center">Login</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        </tbody>
+
+        <% usuarios.forEach(usuario => { %>
+
+            <tr>
+                <td class="text-center"><%= usuario.id %></td>
+                <td class="text-center"><%= usuario.nome %></td>
+                <td class="text-center"><%= usuario.email %></td>
+                <td class="text-center"><%= usuario.login %></td>
+                <td class="text-center" style="min-width:20%">
+                    <a class="btn btn-info mr-1" href="/admin/usuarios/editar/<%= usuario.id %>"><i class="fa fa-pencil"></i>
+                    <a class="btn btn-danger" onclick="javascript:ConfirmarExclusao('<%= usuario.id %>');" href="javascritp:void(0);"><i class="fa fa-trash"></i>
+                </td>
+            </tr>
+
+        <% }) %>
+    
+        </tbody>
+    </table>
+    
+</div>
+
+
+<%- include('../../partials/footer.ejs'); %>
+
+<script>
+function ConfirmarExclusao(id) {
+  if(confirm("Tem certeza?") == true) {
+      window.location.href = '/admin/usuario/excluir/'+id;
+      setTimeout(function() { window.location.href = window.location.href }, 2000);
+  }
+}
+</script>
+
+</body>
+
+</html>

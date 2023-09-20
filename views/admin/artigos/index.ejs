@@ -1,0 +1,70 @@
+<html>
+
+<%- include('../../partials/header.ejs'); %>
+
+<body>
+
+    <%- include('../../partials/navbar.ejs'); %>
+
+    
+</body>
+
+<div class="container pt-3">
+
+    <h3 class="mt-2 mb-2 text-center">Artigos</h3>
+    <hr>
+    <a class="btn btn-success" role="button" href="/admin/artigos/novo"><i class="fa fa-plus"></i> Novo Artigo</a>
+
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th class="text-center">ID</th>
+                <th class="text-center">Capa</th>
+                <th class="text-center">Categoria</th>
+                <th class="text-center">Títiulo</th>
+                <th class="text-center">Slug</th>
+                <th class="text-center">Ações</th>
+            </tr>
+        </thead>
+        </tbody>
+    
+        <% artigos.forEach(artigo => { %>
+
+            <tr>
+                <td class="text-center"><%= artigo.id %></td>
+                <td class="text-center">
+                    <% if(artigo.image){ %>
+                        <img src="/<%= artigo.image %>" class="img-fluid" style="max-width:120px" />
+                    <% }else{ %>
+                        <img src="http://via.placeholder.com/120x120?text=Sem foto" class="img-fluid" style="max-width:120px" />
+                    <% } %>
+                </td>
+                <td class="text-center"><%= artigo.categoria.title %></td>
+                <td><%= artigo.title %></td>
+                <td class="text-center"><%= artigo.slug %></td>
+                <td class="text-center" style="min-width:20%">
+                    <a class="btn btn-info mr-1" href="/admin/artigos/editar/<%= artigo.id %>"><i class="fa fa-pencil"></i>
+                    <a class="btn btn-danger" onclick="javascript:ConfirmarExclusao('<%= artigo.id %>','<%= artigo.image %>');" href="javascritp:void(0);"><i class="fa fa-trash"></i>
+                </td>
+            </tr>
+
+        <% }) %>
+    
+        </tbody>
+    </table>
+    
+</div>
+
+
+<%- include('../../partials/footer.ejs'); %>
+
+<script>
+function ConfirmarExclusao(id, image) {
+  if(confirm("Tem certeza?") == true) {
+      window.location.href = '/admin/artigo/excluir/'+id+(image ? '/'+image : '');
+      setTimeout(function() { window.location.href = window.location.href }, 2000);
+  }
+}
+</script>
+
+</html>

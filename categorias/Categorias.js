@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const connection = require('../database/dadabase');
+const connection = require('../database/database');
 
 const Categorias = connection.define('categorias', {
     title:{
@@ -12,7 +12,7 @@ const Categorias = connection.define('categorias', {
     }
 });
 
-//comando abaixo deve ser executado apenas 1x, logo após criar os relacionamento, depois remove ou comenta
-//Categorias.sync({force: true});
+//true - comando abaixo deve ser executado apenas 1x, logo após criar os relacionamento, depois remove ou comenta
+Categorias.sync({force: false});
 
 module.exports = Categorias;

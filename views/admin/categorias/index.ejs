@@ -33,7 +33,7 @@
                 <td><%= categoria.title %></td>
                 <td class="text-center"><%= categoria.slug %></td>
                 <td class="text-center">
-                    <a class="btn btn-info mr-1" href="/admin/categoria/editar/<%= categoria.id %>"><i class="fa fa-pencil"></i>
+                    <a class="btn btn-info mr-1" href="/admin/categorias/editar/<%= categoria.id %>"><i class="fa fa-pencil"></i>
                     <a class="btn btn-danger" onclick="javascript:ConfirmarExclusao(<%= categoria.id %>);" href="javascritp:void(0);"><i class="fa fa-trash"></i>
                 </td>
             </tr>
@@ -52,6 +52,7 @@
 function ConfirmarExclusao(id) {
   if(confirm("Tem certeza?") == true) {
       window.location.href = '/admin/categoria/excluir/'+id;
+      setTimeout(function() { window.location.href = window.location.href }, 2000);
   }
 }
 </script>

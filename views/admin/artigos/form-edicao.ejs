@@ -14,32 +14,46 @@
     <div class="card" id="formulario-artigo">
 
         <div class="card-header">
-            <h3 class="mt-2 mb-2 text-center">Novo Artigo</h3>
+            <h3 class="mt-2 mb-2 text-center">Editar Artigo</h3>
         </div>
         <div class="card-body">
-            <form method="post" action="/admin/artigos/salvar">
+            <form method="post" action="/admin/artigo/editar">
+                <input type="hidden" name="id" value="<%=artigo.id%>" />
                 <label>Título</label>
-                <input type="text" name="title" placeholder="Título" class="form-control mb-2" required>
+                <input type="text" name="title" placeholder="Título" value="<%=artigo.title%>" class="form-control mb-2" required>
                 <label>Categoria</label>
                 
                 <select class="form-control mb-2" name="categoriaId" required>
-                    <option value="">- Selecione -</option>
                     <% categorias.forEach(categoria => { %>
-                        <option value="<%=categoria.id%>"><%=categoria.title%></option>
+
+                        <% if(categoria.id == artigo.categoriaId){ %>
+                            <option selected="selected" value="<%= categoria.id %>"><%= categoria.title %></option>
+                        <% }else{ %>
+                            <option value="<%= categoria.id %>"><%= categoria.title %></option>
+                        <% } %>
+
                     <% }) %>
+                    
+              
                 </select>
 
+                <input type="hidden" name="image_atual" value="<%=artigo.image%>" />
                 <input type="hidden" id="foto" name="image" value="" />
 
                 <div class="row">
                     <div class="col-md-4 offset-md-4">
-                        <img id="avatar" src="http://via.placeholder.com/300x300?text=Sem foto" class="img-fluid">
+                        <% if(artigo.image){ %>
+                            <img id="avatar" src="/<%=artigo.image%>" class="img-fluid" />
+                        <% }else{ %>
+                            <img id="avatar" src="http://via.placeholder.com/300x300?text=Sem foto" class="img-fluid" />
+                        <% } %>
+
                     </div>
                 </div>
 
                 <label>Conte&uacute;do</label>
                 <textarea id="conteudo" class="form-control mb-2" name="description" placeholder="Conteúdo do artigo" required></textarea>
-                <button class="btn btn-primary mt-2 float-right">Cadastrar</button>
+                <button class="btn btn-primary mt-2 float-right">Editar</button>
             </form>
 
             <form id="form" enctype="multipart/form-data">
@@ -48,7 +62,6 @@
                 <button type="submit" name="upload">Anexar Foto</button>
                 <br/>
             </form>
-
 
         </div>
         <div class="card-footer text-center">
@@ -59,7 +72,8 @@
 
 </div>
 
-
+<!-- usado para carregar o conteúdo html que será setado no editor tinymce -->
+<div id="oculto" class="d-none"><%- artigo.description %></div>
 
 
 
@@ -81,12 +95,13 @@
         'bold italic backcolor | alignleft aligncenter ' +
         'alignright alignjustify | bullist numlist outdent indent | ' +
         'removeformat | help',
-        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
+        init_instance_callback: () => {
+            tinymce.get("conteudo").setContent($('#oculto').html());
+        }
     });
 
-</script>
 
-<script>
     form.addEventListener('submit', event => {
         event.preventDefault();
         let formData = new FormData();
