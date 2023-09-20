@@ -3,6 +3,7 @@ const ArtigosModel = require('./artigos');
 const CategoriasModel = require('../categorias/Categorias');
 const slugify = require('slugify');
 const router = express.Router();
+const autenticar = require('../middlewares/autenticacao');
 
 const multer = require('multer');
 
@@ -29,10 +30,7 @@ const upload = multer({storage: multerStorage});
 const fs = require('fs');
 
 
-
-
-
-router.get('/admin/artigos', (req, res) => {
+router.get('/admin/artigos', autenticar, (req, res) => {
 
     ArtigosModel.findAll({
         include: [
@@ -50,7 +48,7 @@ router.get('/admin/artigos', (req, res) => {
 });
 
 //tela de cadastro
-router.get('/admin/artigos/novo', (req, res) => {
+router.get('/admin/artigos/novo', autenticar, (req, res) => {
 
     CategoriasModel.findAll({
         raw: true,
@@ -65,7 +63,7 @@ router.get('/admin/artigos/novo', (req, res) => {
 });
 
 //tela edição
-router.get('/admin/artigos/editar/:id?', (req, res) => {
+router.get('/admin/artigos/editar/:id?', autenticar, (req, res) => {
 
     var id = req.params.id ? req.params.id : false;
     
@@ -92,7 +90,7 @@ router.get('/admin/artigos/editar/:id?', (req, res) => {
 
 
 //ação de insert no banco de dados
-router.post('/admin/artigos/salvar', (req, res) => {
+router.post('/admin/artigos/salvar', autenticar, (req, res) => {
 
     var title       = req.body.title;
     var categoriaId = req.body.categoriaId;
@@ -116,7 +114,7 @@ router.post('/admin/artigos/salvar', (req, res) => {
 });
 
 //ação de update no banco de dados
-router.post('/admin/artigo/editar', (req, res) => {
+router.post('/admin/artigo/editar', autenticar, (req, res) => {
 
     var id          = req.body.id;
     var title       = req.body.title;
@@ -165,7 +163,7 @@ router.post('/admin/artigo/editar', (req, res) => {
 });
 
 //ação de delete no banco de dados
-router.get('/admin/artigo/excluir/:id?/:image?', (req, res) => {
+router.get('/admin/artigo/excluir/:id?/:image?', autenticar, (req, res) => {
 
     let id    = req.params.id ? req.params.id : false;
     let image = req.params.image ? req.params.image : false;

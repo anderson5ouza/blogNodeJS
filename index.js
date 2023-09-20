@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const connection = require('./database/database');
+const session = require('express-session');
 
 const categoriasController = require('./categorias/CategoriasController');
 const artigosController    = require('./artigos/artigosController');
@@ -11,6 +12,9 @@ const CategoriasModel = require('./categorias/Categorias');
 const ArtigosModel    = require('./artigos/artigos');
 const UsuariosModel   = require('./usuarios/Usuarios');
 
+//neste arquivo, é usado apenas na rota principal do admin
+const autenticar = require('./middlewares/autenticacao');
+
 
 
 // Enable CORS
@@ -19,6 +23,14 @@ app.use(function(req, res, next){
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
+
+//configurando o express-session
+app.use(session({
+    secret: "adwerwtgdfgdfhgfhdfsert234", 
+    resave: true, 
+    saveUninitialized: true, 
+    cookie: {maxAge: 30000} // duraçãoem milisegundos
+}));
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -42,7 +54,30 @@ app.use('/', artigosController);
 app.use('/', usuariosController);
 
 
-app.get('/admin', (req, res) => {
+
+app.get('/gravar-session', (req, res) => {
+
+    req.session.teste = 'valor gravado na session';
+    req.session.pessoa  = {
+        nome: 'Anderson', 
+        idade: 41
+    };
+
+    res.send('session gravada');
+});
+
+app.get('/ler-session', (req, res) => {
+    
+    res.json({
+        variavel: req.session.teste,
+        objeto: req.session.pessoa
+    });
+
+});
+
+
+//tela inicial do admin
+app.get('/admin', autenticar, (req, res) => {
     res.render('admin/index');
 });
 
